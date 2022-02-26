@@ -4,7 +4,7 @@
 
         <ul>
             <li>
-                <router-link :to="{ name: 'posts' }">Lista Post</router-link>
+                <router-link :to="{ name: 'home' }">Home</router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'categories' }">Lista Categorie</router-link>

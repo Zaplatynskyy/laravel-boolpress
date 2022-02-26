@@ -2,17 +2,15 @@
     <section id="posts_list">
         <div class="container">
 
-            <div class="post">
+            <div class="post" v-for="post in posts" :key="post.id">
                 <div class="info_post">
-                    <h2 class="title">Titolo</h2>
-                    <div class="date_published">data post</div>
+                    <h2 class="title">{{post.title}}</h2>
+                    <div class="date_published">{{datePost(post.updated_at)}}</div>
                 </div>
 
-                <img src="img/external-content.duckduckgo.com.jpg" alt="">
+                <img :src="`storage/${post.image}`" alt="">
 
-                <div class="post_content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio ut commodi voluptatum nemo! Et accusantium architecto laboriosam, minima dicta voluptas ipsa quia voluptatibus voluptates cupiditate facilis praesentium fugiat fugit.
-                </div>
+                <div class="post_content">{{post.content}}</div>
             </div>
 
         </div>
@@ -36,6 +34,13 @@ export default {
             .then( response => {
                 this.posts = response.data;
             })
+    },
+
+    methods : {
+        datePost(date) {
+            const newDate = new Date(date);
+            return newDate.getDate() +'-'+ newDate.getMonth() +'-'+ newDate.getFullYear()
+        }
     }
 }
 </script>
@@ -59,6 +64,7 @@ export default {
         }
 
         img {
+            width: 100%;
             border-radius: 5px;
             margin: 20px 0;
         }

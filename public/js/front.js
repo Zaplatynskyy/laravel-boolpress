@@ -2057,8 +2057,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
   data: function data() {
@@ -2073,6 +2071,12 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('http://localhost:8000/api/posts').then(function (response) {
       _this.posts = response.data;
     });
+  },
+  methods: {
+    datePost: function datePost(date) {
+      var newDate = new Date(date);
+      return newDate.getDate() + '-' + newDate.getMonth() + '-' + newDate.getFullYear();
+    }
   }
 });
 
@@ -2130,7 +2134,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#posts_list .post[data-v-b3c5cf30] {\n  text-align: center;\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n#posts_list .post .info_post[data-v-b3c5cf30] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#posts_list .post img[data-v-b3c5cf30] {\n  border-radius: 5px;\n  margin: 20px 0;\n}", ""]);
+exports.push([module.i, "#posts_list .post[data-v-b3c5cf30] {\n  text-align: center;\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n#posts_list .post .info_post[data-v-b3c5cf30] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#posts_list .post img[data-v-b3c5cf30] {\n  width: 100%;\n  border-radius: 5px;\n  margin: 20px 0;\n}", ""]);
 
 // exports
 
@@ -3340,8 +3344,8 @@ var render = function () {
       _c(
         "li",
         [
-          _c("router-link", { attrs: { to: { name: "posts" } } }, [
-            _vm._v("Lista Post"),
+          _c("router-link", { attrs: { to: { name: "home" } } }, [
+            _vm._v("Home"),
           ]),
         ],
         1
@@ -3448,36 +3452,32 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "posts_list" } }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "post" }, [
+  return _c("section", { attrs: { id: "posts_list" } }, [
+    _c(
+      "div",
+      { staticClass: "container" },
+      _vm._l(_vm.posts, function (post) {
+        return _c("div", { key: post.id, staticClass: "post" }, [
           _c("div", { staticClass: "info_post" }, [
-            _c("h2", { staticClass: "title" }, [_vm._v("Titolo")]),
+            _c("h2", { staticClass: "title" }, [_vm._v(_vm._s(post.title))]),
             _vm._v(" "),
-            _c("div", { staticClass: "date_published" }, [_vm._v("data post")]),
+            _c("div", { staticClass: "date_published" }, [
+              _vm._v(_vm._s(_vm.datePost(post.updated_at))),
+            ]),
           ]),
           _vm._v(" "),
-          _c("img", {
-            attrs: { src: "img/external-content.duckduckgo.com.jpg", alt: "" },
-          }),
+          _c("img", { attrs: { src: "storage/" + post.image, alt: "" } }),
           _vm._v(" "),
           _c("div", { staticClass: "post_content" }, [
-            _vm._v(
-              "\n                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio ut commodi voluptatum nemo! Et accusantium architecto laboriosam, minima dicta voluptas ipsa quia voluptatibus voluptates cupiditate facilis praesentium fugiat fugit.\n            "
-            ),
+            _vm._v(_vm._s(post.content)),
           ]),
-        ]),
-      ]),
-    ])
-  },
-]
+        ])
+      }),
+      0
+    ),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

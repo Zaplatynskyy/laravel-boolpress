@@ -1,6 +1,18 @@
 <template>
     <header>
+        <img src="img/boolpress-logo.png" alt="boolpress logo">
 
+        <ul>
+            <li>
+                <router-link :to="{ name: 'posts' }">Lista Post</router-link>
+            </li>
+            <li>
+                <router-link :to="{ name: 'categories' }">Lista Categorie</router-link>
+            </li>
+            <li>
+                <router-link :to="{ name: 'tags' }">Lista Tag</router-link>
+            </li>
+        </ul>
     </header>
 </template>
 
@@ -10,6 +22,38 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+    header {
+        height: 100px;
+        box-shadow: 0px 3px 5px 0px #E2DCEA;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+            height: 100%;
+        }
+
+        ul {
+            list-style: none;
+
+            li {
+                display: inline-block;
+                margin: 0 5px;
+
+                a {
+                    color: black;
+                    text-decoration: none;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: #f57d00;
+                    }
+                }
+            }
+        }
+    }
 
 </style>

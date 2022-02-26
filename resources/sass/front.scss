@@ -1,8 +1,8 @@
 // // Fonts
 // @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// // Variables
-// @import 'variables';
+// Variables
+@import 'variables';
 
 // // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
@@ -11,4 +11,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background-color: #023047;
+    font-size: 100%;
+}
+
+.container {
+    width: 40%;
+    padding: 50px;
+    margin: auto;
 }

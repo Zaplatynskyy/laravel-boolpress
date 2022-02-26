@@ -1,6 +1,6 @@
 <template>
     <header>
-        <img src="img/boolpress-logo.png" alt="boolpress logo">
+        <img src="img/external-content.duckduckgo.com.png" alt="boolpress logo">
 
         <ul>
             <li>
@@ -27,7 +27,7 @@ export default {
     header {
         height: 100px;
         box-shadow: 0px 3px 5px 0px #E2DCEA;
-        padding: 20px;
+        padding: 10px 100px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -44,7 +44,7 @@ export default {
                 margin: 0 5px;
 
                 a {
-                    color: black;
+                    color: white;
                     text-decoration: none;
                     text-transform: uppercase;
 

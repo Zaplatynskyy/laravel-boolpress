@@ -4,11 +4,13 @@
 
             <div class="post" v-for="post in posts" :key="post.id">
                 <div class="info_post">
-                    <h2 class="title">{{post.title}}</h2>
+                    <router-link :to="{ name: 'single-post', params: {slug: post.slug} }">
+                        <h2 class="title">{{post.title}}</h2>
+                    </router-link>
                     <div class="date_published">{{datePost(post.updated_at)}}</div>
                 </div>
 
-                <img :src="`storage/${post.image}`" alt="">
+                <img :src="`storage/${post.image}`" :alt="post.title">
 
                 <div class="post_content">{{post.content}}</div>
             </div>
@@ -28,8 +30,6 @@ export default {
     },
 
     created() {
-        axios.get('http://localhost:8000/api/posts')
-
         axios.get('http://localhost:8000/api/posts')
             .then( response => {
                 this.posts = response.data;

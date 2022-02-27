@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Categories from "./pages/Categories";
 import SingleCategory from "./pages/SingleCategory";
 import Tags from "./pages/Tags";
+import SingleTag from "./pages/SingleTag";
 import SinglePost from "./pages/SinglePost";
 import PageNotFound from "./pages/PageNotFound";
 
@@ -32,6 +33,11 @@ const router = new VueRouter({
             path: "/tags",
             name: "tags",
             component: Tags
+        },
+        {
+            path: "/tags/:slug",
+            name: "single-tag",
+            component: SingleTag
         },
         {
             path: "/posts/:slug",

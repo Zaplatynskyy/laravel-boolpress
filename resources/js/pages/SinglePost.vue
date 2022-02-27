@@ -38,6 +38,9 @@ export default {
             .then( (response) => {
                 this.post = response.data;
                 console.log(this.post);
+            }).catch( ()=> {
+                // handle error
+                this.$router.push({name: "page-404"})
             })
     },
 

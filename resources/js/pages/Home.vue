@@ -10,7 +10,17 @@
                     <div class="date_published">{{datePost(post.updated_at)}}</div>
                 </div>
 
-                <img :src="`storage/${post.image}`" :alt="post.title">
+                <div class="tags" v-if="post.tags">
+                    <span v-for="tag in post.tags" :key="tag.id">#{{tag.name}}</span>
+                </div>
+
+                <div class="image">
+                    <img :src="`storage/${post.image}`" :alt="post.title">
+                </div>
+
+                <div class="category" v-if="post.category">
+                    {{post.category.name}}
+                </div>
 
                 <div class="post_content">{{post.content}}</div>
             </div>
@@ -50,8 +60,6 @@ export default {
 #posts_list {
 
     .post{
-        // padding: 20px 0;
-        text-align: center;
         background-color: #fff;
         border-radius: 20px;
         padding: 40px 80px;
@@ -61,12 +69,49 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            a {
+                text-decoration: none;
+            }
         }
 
-        img {
-            width: 100%;
-            border-radius: 5px;
-            margin: 20px 0;
+        .tags {
+            margin-bottom: 10px;
+
+            span {
+                margin-right: 5px;
+            }
+        }
+
+
+        .image {
+            width: 90%;
+            margin: auto;
+
+            img {
+                width: 100%;
+                border-radius: 5px;
+            }
+        }
+
+        .category {
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: yellow;
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin: 10px 0;
+        }
+
+        .post_content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+
+            margin-top: 10px;
         }
     }
 }

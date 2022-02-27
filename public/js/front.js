@@ -2059,6 +2059,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
   data: function data() {
@@ -2092,6 +2102,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2184,7 +2204,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#posts_list .post[data-v-b3c5cf30] {\n  text-align: center;\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n#posts_list .post .info_post[data-v-b3c5cf30] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#posts_list .post img[data-v-b3c5cf30] {\n  width: 100%;\n  border-radius: 5px;\n  margin: 20px 0;\n}", ""]);
+exports.push([module.i, "#posts_list .post[data-v-b3c5cf30] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n#posts_list .post .info_post[data-v-b3c5cf30] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#posts_list .post .info_post a[data-v-b3c5cf30] {\n  text-decoration: none;\n}\n#posts_list .post .tags[data-v-b3c5cf30] {\n  margin-bottom: 10px;\n}\n#posts_list .post .tags span[data-v-b3c5cf30] {\n  margin-right: 5px;\n}\n#posts_list .post .image[data-v-b3c5cf30] {\n  width: 90%;\n  margin: auto;\n}\n#posts_list .post .image img[data-v-b3c5cf30] {\n  width: 100%;\n  border-radius: 5px;\n}\n#posts_list .post .category[data-v-b3c5cf30] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n#posts_list .post .post_content[data-v-b3c5cf30] {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n  margin-top: 10px;\n}", ""]);
 
 // exports
 
@@ -2203,7 +2223,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".post[data-v-67cb3b51] {\n  text-align: center;\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-67cb3b51] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post img[data-v-67cb3b51] {\n  width: 100%;\n  border-radius: 5px;\n  margin: 20px 0;\n}", ""]);
+exports.push([module.i, ".post[data-v-67cb3b51] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-67cb3b51] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-67cb3b51] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-67cb3b51] {\n  margin-right: 5px;\n}\n.post .image[data-v-67cb3b51] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-67cb3b51] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-67cb3b51] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-67cb3b51] {\n  margin-top: 10px;\n}", ""]);
 
 // exports
 
@@ -3582,9 +3602,34 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("img", {
-            attrs: { src: "storage/" + post.image, alt: post.title },
-          }),
+          post.tags
+            ? _c(
+                "div",
+                { staticClass: "tags" },
+                _vm._l(post.tags, function (tag) {
+                  return _c("span", { key: tag.id }, [
+                    _vm._v("#" + _vm._s(tag.name)),
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "image" }, [
+            _c("img", {
+              attrs: { src: "storage/" + post.image, alt: post.title },
+            }),
+          ]),
+          _vm._v(" "),
+          post.category
+            ? _c("div", { staticClass: "category" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(post.category.name) +
+                    "\n            "
+                ),
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "post_content" }, [
             _vm._v(_vm._s(post.content)),
@@ -3627,9 +3672,32 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("img", {
-        attrs: { src: "storage/" + _vm.post.image, alt: _vm.post.title },
-      }),
+      _vm.post.tags
+        ? _c(
+            "div",
+            { staticClass: "tags" },
+            _vm._l(_vm.post.tags, function (tag) {
+              return _c("span", { key: tag.id }, [
+                _vm._v("#" + _vm._s(tag.name)),
+              ])
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "image" }, [
+        _c("img", {
+          attrs: { src: "storage/" + _vm.post.image, alt: _vm.post.title },
+        }),
+      ]),
+      _vm._v(" "),
+      _vm.post.category
+        ? _c("div", { staticClass: "category" }, [
+            _vm._v(
+              "\n            " + _vm._s(_vm.post.category.name) + "\n        "
+            ),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "post_content" }, [
         _vm._v(_vm._s(_vm.post.content)),

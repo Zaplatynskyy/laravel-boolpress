@@ -5,12 +5,26 @@ namespace App\Http\Controllers\Api;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
     public function store(Request $request)
     {
         $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'nullable|string|max: 50',
+            'content' => 'required|string',
+            'post_id' => 'exists:posts,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "success" => false,
+                "errors" => $validator->errors()
+            ], 400);
+        }
 
         $new_comment = new Comment();
 

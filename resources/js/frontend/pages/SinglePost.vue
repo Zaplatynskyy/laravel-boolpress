@@ -32,8 +32,16 @@
                     <label for="content">Inserisci il tuo commento</label>
                     <textarea  id="content" cols="30" rows="10" v-model="formData.content"></textarea>
                 </div>
+                <div class="errors" v-show="formErrors.content">
+                    <div  v-for="(error, i) in formErrors.content" :key="i">{{error}}</div>
+                </div>
+                <div class="message errors" v-show="formErrors.post_id">
+                    <div  v-for="(error, i) in formErrors.post_id" :key="i">{{error}}</div>
+                </div>
 
                 <button type="submit">Aggiungi commento</button>
+
+                <div class="message success" v-show="successComment">Messaggio Inviato correttamente e in attesa di conferma</div>
             </form>
         </div>
     </section>
@@ -51,7 +59,11 @@ export default {
                 name : '',
                 content : '',
                 post_id : null
-            }
+            },
+
+            formErrors : {},
+
+            successComment : false
         }
     },
 
@@ -75,7 +87,13 @@ export default {
         sendComment() {
             axios.post('http://localhost:8000/api/comments', this.formData)
                 .then((response)=> {
-                    console.log(response);
+                    this.formData.name = '';
+                    this.formData.content = '';
+                    this.successComment = true;
+
+                }).catch( (error)=> {
+                // handle error
+                    this.formErrors = error.response.data.errors;
                 })
         }
     }
@@ -148,7 +166,21 @@ export default {
             padding: 5px 10px;
             margin: 10px 0;
         }
+    }
 
+    .message {
+        color: white;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 10px 0;
+    }
+
+    .errors {
+        background-color: #e3342f;
+    }
+
+    .success {
+        background-color: #38c172;
     }
 
     button {

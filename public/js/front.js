@@ -2249,6 +2249,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
   data: function data() {
@@ -2258,7 +2266,9 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         content: '',
         post_id: null
-      }
+      },
+      formErrors: {},
+      successComment: false
     };
   },
   created: function created() {
@@ -2280,8 +2290,15 @@ __webpack_require__.r(__webpack_exports__);
       return newDate.getDate() + '-' + newDate.getMonth() + '-' + newDate.getFullYear();
     },
     sendComment: function sendComment() {
+      var _this2 = this;
+
       axios.post('http://localhost:8000/api/comments', this.formData).then(function (response) {
-        console.log(response);
+        _this2.formData.name = '';
+        _this2.formData.content = '';
+        _this2.successComment = true;
+      })["catch"](function (error) {
+        // handle error
+        _this2.formErrors = error.response.data.errors;
       });
     }
   }
@@ -2493,7 +2510,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".post[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}\n.ins_comment[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.ins_comment .data_form[data-v-5a38de22] {\n  display: flex;\n  flex-direction: column;\n}\n.ins_comment .data_form label[data-v-5a38de22] {\n  font-size: 1.1rem;\n  font-weight: bold;\n}\n.ins_comment .data_form input[data-v-5a38de22], .ins_comment .data_form textarea[data-v-5a38de22] {\n  padding: 5px 10px;\n  margin: 10px 0;\n}\n.ins_comment button[data-v-5a38de22] {\n  color: white;\n  text-transform: uppercase;\n  background-color: #38c172;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  padding: 5px 10px;\n}", ""]);
+exports.push([module.i, ".post[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}\n.ins_comment[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.ins_comment .data_form[data-v-5a38de22] {\n  display: flex;\n  flex-direction: column;\n}\n.ins_comment .data_form label[data-v-5a38de22] {\n  font-size: 1.1rem;\n  font-weight: bold;\n}\n.ins_comment .data_form input[data-v-5a38de22], .ins_comment .data_form textarea[data-v-5a38de22] {\n  padding: 5px 10px;\n  margin: 10px 0;\n}\n.ins_comment .message[data-v-5a38de22] {\n  color: white;\n  border-radius: 5px;\n  padding: 5px;\n  margin: 10px 0;\n}\n.ins_comment .errors[data-v-5a38de22] {\n  background-color: #e3342f;\n}\n.ins_comment .success[data-v-5a38de22] {\n  background-color: #38c172;\n}\n.ins_comment button[data-v-5a38de22] {\n  color: white;\n  text-transform: uppercase;\n  background-color: #38c172;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  padding: 5px 10px;\n}", ""]);
 
 // exports
 
@@ -4362,9 +4379,63 @@ var render = function () {
             }),
           ]),
           _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.formErrors.content,
+                  expression: "formErrors.content",
+                },
+              ],
+              staticClass: "errors",
+            },
+            _vm._l(_vm.formErrors.content, function (error, i) {
+              return _c("div", { key: i }, [_vm._v(_vm._s(error))])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.formErrors.post_id,
+                  expression: "formErrors.post_id",
+                },
+              ],
+              staticClass: "message errors",
+            },
+            _vm._l(_vm.formErrors.post_id, function (error, i) {
+              return _c("div", { key: i }, [_vm._v(_vm._s(error))])
+            }),
+            0
+          ),
+          _vm._v(" "),
           _c("button", { attrs: { type: "submit" } }, [
             _vm._v("Aggiungi commento"),
           ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.successComment,
+                  expression: "successComment",
+                },
+              ],
+              staticClass: "message success",
+            },
+            [_vm._v("Messaggio Inviato correttamente e in attesa di conferma")]
+          ),
         ]
       ),
     ]),

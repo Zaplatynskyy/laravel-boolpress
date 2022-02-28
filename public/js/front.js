@@ -2233,11 +2233,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
   data: function data() {
     return {
-      post: {}
+      post: {},
+      formData: {
+        name: '',
+        content: '',
+        post_id: null
+      }
     };
   },
   created: function created() {
@@ -2245,7 +2266,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("http://localhost:8000/api/posts/".concat(this.$route.params.slug)).then(function (response) {
       _this.post = response.data;
-      console.log(_this.post);
+      _this.formData.post_id = response.data.id;
     })["catch"](function () {
       // handle error
       _this.$router.push({
@@ -2257,6 +2278,11 @@ __webpack_require__.r(__webpack_exports__);
     datePost: function datePost(date) {
       var newDate = new Date(date);
       return newDate.getDate() + '-' + newDate.getMonth() + '-' + newDate.getFullYear();
+    },
+    sendComment: function sendComment() {
+      axios.post('http://localhost:8000/api/comments', this.formData).then(function (response) {
+        console.log(response);
+      });
     }
   }
 });
@@ -2467,7 +2493,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".post[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}", ""]);
+exports.push([module.i, ".post[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}\n.ins_comment[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.ins_comment .data_form[data-v-5a38de22] {\n  display: flex;\n  flex-direction: column;\n}\n.ins_comment .data_form label[data-v-5a38de22] {\n  font-size: 1.1rem;\n  font-weight: bold;\n}\n.ins_comment .data_form input[data-v-5a38de22], .ins_comment .data_form textarea[data-v-5a38de22] {\n  padding: 5px 10px;\n  margin: 10px 0;\n}\n.ins_comment button[data-v-5a38de22] {\n  color: white;\n  text-transform: uppercase;\n  background-color: #38c172;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  padding: 5px 10px;\n}", ""]);
 
 // exports
 
@@ -4268,6 +4294,79 @@ var render = function () {
       _c("div", { staticClass: "post_content" }, [
         _vm._v(_vm._s(_vm.post.content)),
       ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "ins_comment" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function ($event) {
+              $event.preventDefault()
+              return _vm.sendComment()
+            },
+          },
+        },
+        [
+          _c("div", { staticClass: "data_form" }, [
+            _c("label", { attrs: { for: "name" } }, [
+              _vm._v("Inserisci il tuo nome"),
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.name,
+                  expression: "formData.name",
+                },
+              ],
+              attrs: { type: "text", id: "name" },
+              domProps: { value: _vm.formData.name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "name", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "data_form" }, [
+            _c("label", { attrs: { for: "content" } }, [
+              _vm._v("Inserisci il tuo commento"),
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.content,
+                  expression: "formData.content",
+                },
+              ],
+              attrs: { id: "content", cols: "30", rows: "10" },
+              domProps: { value: _vm.formData.content },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "content", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("button", { attrs: { type: "submit" } }, [
+            _vm._v("Aggiungi commento"),
+          ]),
+        ]
+      ),
     ]),
   ])
 }

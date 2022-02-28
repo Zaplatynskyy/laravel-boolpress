@@ -20,6 +20,22 @@
 
             <div class="post_content">{{post.content}}</div>
         </div>
+
+        <div class="ins_comment">
+            <form @submit.prevent="sendComment()">
+                <div class="data_form">
+                    <label for="name">Inserisci il tuo nome</label>
+                    <input type="text" id="name" v-model="formData.name">
+                </div>
+
+                <div class="data_form">
+                    <label for="content">Inserisci il tuo commento</label>
+                    <textarea  id="content" cols="30" rows="10" v-model="formData.content"></textarea>
+                </div>
+
+                <button type="submit">Aggiungi commento</button>
+            </form>
+        </div>
     </section>
 </template>
 
@@ -29,7 +45,13 @@ export default {
 
     data() {
         return {
-            post : {}
+            post : {},
+
+            formData : {
+                name : '',
+                content : '',
+                post_id : null
+            }
         }
     },
 
@@ -37,7 +59,7 @@ export default {
         axios.get(`http://localhost:8000/api/posts/${this.$route.params.slug}`)
             .then( (response) => {
                 this.post = response.data;
-                console.log(this.post);
+                this.formData.post_id = response.data.id;
             }).catch( ()=> {
                 // handle error
                 this.$router.push({name: "page-404"})
@@ -48,6 +70,13 @@ export default {
         datePost(date) {
             const newDate = new Date(date);
             return newDate.getDate() +'-'+ newDate.getMonth() +'-'+ newDate.getFullYear()
+        },
+
+        sendComment() {
+            axios.post('http://localhost:8000/api/comments', this.formData)
+                .then((response)=> {
+                    console.log(response);
+                })
         }
     }
 }
@@ -97,6 +126,39 @@ export default {
 
     .post_content {
         margin-top: 10px;
+    }
+}
+
+.ins_comment {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px 80px;
+    margin: 20px 0;
+
+    .data_form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            padding: 5px 10px;
+            margin: 10px 0;
+        }
+
+    }
+
+    button {
+        color: white;
+        text-transform: uppercase;
+        background-color: #38c172;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px 10px;
     }
 }
 

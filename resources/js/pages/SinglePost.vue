@@ -11,7 +11,7 @@
             </div>
 
             <div class="image">
-                <img :src="`storage/${post.image}`" :alt="post.title">
+                <img :src="`/storage/${post.image}`" :alt="post.title">
             </div>
 
             <div class="category" v-if="post.category">

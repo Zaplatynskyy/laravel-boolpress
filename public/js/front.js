@@ -1981,6 +1981,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Header'
 });
@@ -2369,7 +2372,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header[data-v-1f42fb90] {\n  height: 100px;\n  box-shadow: 0px 3px 5px 0px #E2DCEA;\n  padding: 10px 100px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\nheader img[data-v-1f42fb90] {\n  height: 100%;\n}\nheader ul[data-v-1f42fb90] {\n  list-style: none;\n}\nheader ul li[data-v-1f42fb90] {\n  display: inline-block;\n  margin: 0 5px;\n}\nheader ul li a[data-v-1f42fb90] {\n  color: white;\n  text-decoration: none;\n  text-transform: uppercase;\n}\nheader ul li a[data-v-1f42fb90]:hover {\n  color: #f57d00;\n}", ""]);
+exports.push([module.i, "header[data-v-1f42fb90] {\n  width: 100%;\n  height: 100px;\n  background-color: #023047;\n  box-shadow: 0px 3px 5px 0px #E2DCEA;\n  opacity: 0.95;\n  padding: 10px 100px;\n  position: fixed;\n  top: 0;\n  left: 0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\nheader img[data-v-1f42fb90] {\n  height: 100%;\n}\nheader ul[data-v-1f42fb90] {\n  list-style: none;\n}\nheader ul li[data-v-1f42fb90] {\n  display: inline-block;\n  margin: 0 5px;\n}\nheader ul li a[data-v-1f42fb90] {\n  color: white;\n  text-decoration: none;\n  text-transform: uppercase;\n}\nheader ul li a[data-v-1f42fb90]:hover {\n  color: #f57d00;\n}", ""]);
 
 // exports
 
@@ -3883,7 +3886,7 @@ var render = function () {
   return _c("header", [
     _c("img", {
       attrs: {
-        src: "img/external-content.duckduckgo.com.png",
+        src: "/img/external-content.duckduckgo.com.png",
         alt: "boolpress logo",
       },
     }),
@@ -3918,10 +3921,21 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _vm._m(0),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "/admin/home" } }, [_vm._v("Area riservata")]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -4239,7 +4253,7 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "image" }, [
         _c("img", {
-          attrs: { src: "storage/" + _vm.post.image, alt: _vm.post.title },
+          attrs: { src: "/storage/" + _vm.post.image, alt: _vm.post.title },
         }),
       ]),
       _vm._v(" "),

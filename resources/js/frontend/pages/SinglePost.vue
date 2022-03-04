@@ -1,6 +1,6 @@
 <template>
     <section class="single_post container">
-        <div class="post">
+        <div class="container_elements post">
             <div class="info_post">
                 <h2 class="title">{{post.title}}</h2>
                 <div class="date_published">{{datePost(post.updated_at)}}</div>
@@ -21,7 +21,7 @@
             <div class="post_content">{{post.content}}</div>
         </div>
 
-        <div class="ins_comment">
+        <div class="container_elements ins_comment">
             <form @submit.prevent="sendComment()">
                 <div class="data_form">
                     <label for="name">Inserisci il tuo nome</label>
@@ -44,6 +44,16 @@
                 <div class="message success" v-show="successComment">Messaggio Inviato correttamente e in attesa di conferma</div>
             </form>
         </div>
+
+        <div class="container_elements list_comments" v-if="isComments > 0">
+            <h2>Commenti</h2>
+            <ul>
+                <li v-for="comment in post.comments" :key="comment.id">
+                    <h4>{{comment.name}}</h4>
+                    <p>{{comment.content}}</p>
+                </li>
+            </ul>
+        </div>
     </section>
 </template>
 
@@ -63,7 +73,9 @@ export default {
 
             formErrors : {},
 
-            successComment : false
+            successComment : false,
+
+            isComments : 0
         }
     },
 
@@ -72,6 +84,7 @@ export default {
             .then( (response) => {
                 this.post = response.data;
                 this.formData.post_id = response.data.id;
+                this.isComments = this.post.comments.length;
             }).catch( ()=> {
                 // handle error
                 this.$router.push({name: "page-404"})
@@ -102,11 +115,14 @@ export default {
 
 <style lang="scss" scoped>
 
-.post{
+.container_elements {
     background-color: #fff;
     border-radius: 20px;
     padding: 40px 80px;
     margin: 20px 0;
+}
+
+.post{
 
     .info_post {
         display: flex;
@@ -148,10 +164,6 @@ export default {
 }
 
 .ins_comment {
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 40px 80px;
-    margin: 20px 0;
 
     .data_form {
         display: flex;
@@ -191,6 +203,25 @@ export default {
         border-radius: 5px;
         cursor: pointer;
         padding: 5px 10px;
+    }
+}
+
+.list_comments {
+
+    li {
+        padding: 20px 0;
+
+        h4 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: .9rem;
+        }
+    }
+
+    li:not(:last-child) {
+        border-bottom: 1px solid lightgrey;
     }
 }
 

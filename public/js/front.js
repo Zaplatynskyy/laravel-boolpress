@@ -2257,6 +2257,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
   data: function data() {
@@ -2268,7 +2278,8 @@ __webpack_require__.r(__webpack_exports__);
         post_id: null
       },
       formErrors: {},
-      successComment: false
+      successComment: false,
+      isComments: 0
     };
   },
   created: function created() {
@@ -2277,6 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("http://localhost:8000/api/posts/".concat(this.$route.params.slug)).then(function (response) {
       _this.post = response.data;
       _this.formData.post_id = response.data.id;
+      _this.isComments = _this.post.comments.length;
     })["catch"](function () {
       // handle error
       _this.$router.push({
@@ -2510,7 +2522,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".post[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}\n.ins_comment[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.ins_comment .data_form[data-v-5a38de22] {\n  display: flex;\n  flex-direction: column;\n}\n.ins_comment .data_form label[data-v-5a38de22] {\n  font-size: 1.1rem;\n  font-weight: bold;\n}\n.ins_comment .data_form input[data-v-5a38de22], .ins_comment .data_form textarea[data-v-5a38de22] {\n  padding: 5px 10px;\n  margin: 10px 0;\n}\n.ins_comment .message[data-v-5a38de22] {\n  color: white;\n  border-radius: 5px;\n  padding: 5px;\n  margin: 10px 0;\n}\n.ins_comment .errors[data-v-5a38de22] {\n  background-color: #e3342f;\n}\n.ins_comment .success[data-v-5a38de22] {\n  background-color: #38c172;\n}\n.ins_comment button[data-v-5a38de22] {\n  color: white;\n  text-transform: uppercase;\n  background-color: #38c172;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  padding: 5px 10px;\n}", ""]);
+exports.push([module.i, ".container_elements[data-v-5a38de22] {\n  background-color: #fff;\n  border-radius: 20px;\n  padding: 40px 80px;\n  margin: 20px 0;\n}\n.post .info_post[data-v-5a38de22] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.post .tags[data-v-5a38de22] {\n  margin-bottom: 10px;\n}\n.post .tags span[data-v-5a38de22] {\n  margin-right: 5px;\n}\n.post .image[data-v-5a38de22] {\n  width: 90%;\n  margin: auto;\n}\n.post .image img[data-v-5a38de22] {\n  width: 100%;\n  border-radius: 5px;\n}\n.post .category[data-v-5a38de22] {\n  text-align: center;\n  font-weight: bold;\n  text-transform: uppercase;\n  background-color: yellow;\n  border-radius: 15px;\n  padding: 10px 20px;\n  margin: 10px 0;\n}\n.post .post_content[data-v-5a38de22] {\n  margin-top: 10px;\n}\n.ins_comment .data_form[data-v-5a38de22] {\n  display: flex;\n  flex-direction: column;\n}\n.ins_comment .data_form label[data-v-5a38de22] {\n  font-size: 1.1rem;\n  font-weight: bold;\n}\n.ins_comment .data_form input[data-v-5a38de22], .ins_comment .data_form textarea[data-v-5a38de22] {\n  padding: 5px 10px;\n  margin: 10px 0;\n}\n.ins_comment .message[data-v-5a38de22] {\n  color: white;\n  border-radius: 5px;\n  padding: 5px;\n  margin: 10px 0;\n}\n.ins_comment .errors[data-v-5a38de22] {\n  background-color: #e3342f;\n}\n.ins_comment .success[data-v-5a38de22] {\n  background-color: #38c172;\n}\n.ins_comment button[data-v-5a38de22] {\n  color: white;\n  text-transform: uppercase;\n  background-color: #38c172;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  padding: 5px 10px;\n}\n.list_comments li[data-v-5a38de22] {\n  padding: 20px 0;\n}\n.list_comments li h4[data-v-5a38de22] {\n  margin-bottom: 20px;\n}\n.list_comments li p[data-v-5a38de22] {\n  font-size: 0.9rem;\n}\n.list_comments li[data-v-5a38de22]:not(:last-child) {\n  border-bottom: 1px solid lightgrey;\n}", ""]);
 
 // exports
 
@@ -4272,7 +4284,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "single_post container" }, [
-    _c("div", { staticClass: "post" }, [
+    _c("div", { staticClass: "container_elements post" }, [
       _c("div", { staticClass: "info_post" }, [
         _c("h2", { staticClass: "title" }, [_vm._v(_vm._s(_vm.post.title))]),
         _vm._v(" "),
@@ -4313,7 +4325,7 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "ins_comment" }, [
+    _c("div", { staticClass: "container_elements ins_comment" }, [
       _c(
         "form",
         {
@@ -4439,6 +4451,24 @@ var render = function () {
         ]
       ),
     ]),
+    _vm._v(" "),
+    _vm.isComments > 0
+      ? _c("div", { staticClass: "container_elements list_comments" }, [
+          _c("h2", [_vm._v("Commenti")]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.post.comments, function (comment) {
+              return _c("li", { key: comment.id }, [
+                _c("h4", [_vm._v(_vm._s(comment.name))]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(comment.content))]),
+              ])
+            }),
+            0
+          ),
+        ])
+      : _vm._e(),
   ])
 }
 var staticRenderFns = []

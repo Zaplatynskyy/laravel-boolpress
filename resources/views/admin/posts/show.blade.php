@@ -48,5 +48,40 @@
              <span class="badge badge-secondary">Non Publicato</span>
         @endif
     </div>
+
+    @if(count($post->comments) > 0) 
+        <div class="comments my-4">
+            <h2>Commenti</h2>
+            @foreach ($post->comments as $comment)
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="w-25">{{$comment->name}}</th>
+                            <td class="w-50">{{$comment->content}}</td>
+                            <td class="w-25 d-flex align-items-center">
+                                @if ($comment->approved)
+                                    <div class="approved">Approvato</div>
+                                @else
+                                    <form action="{{route('comments.update', $comment->id)}}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button type="submit" class="btn btn-success">Accetta</button>
+                                    </form>
+                                @endif
+
+                                <form action="{{route('comments.destroy', $comment->id)}}" method="POST" class="ml-2">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-danger">Elimina</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            @endforeach
+        </div>
+    @endif
 </div>
 @endsection

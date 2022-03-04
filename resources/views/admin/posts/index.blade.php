@@ -18,7 +18,7 @@
                            <li>
                                <div class="head_post d-flex justify-content-between">
                                     <div class="title">
-                                        <h2>{{$post->title}}</h2>
+                                        <h2>{{$post->id}}. {{$post->title}}</h2>
                                         <h5>{{$post->slug}}</h5>
                                     </div>
 

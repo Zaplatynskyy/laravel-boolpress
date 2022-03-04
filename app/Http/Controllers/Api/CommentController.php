@@ -6,6 +6,8 @@ use App\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentMail;
 
 class CommentController extends Controller
 {
@@ -35,6 +37,8 @@ class CommentController extends Controller
         $new_comment->content = $data['content'];
         $new_comment->post_id = $data['post_id'];
         $new_comment->save();
+
+        Mail::to('webmaster@boolpress.com')->send(new CommentMail($new_comment->post));
 
         return response()->json([
             "success" => true
